@@ -2,22 +2,14 @@
 
 This repository contains a Python implementation of a discrete-time Linear-Quadratic-Gaussian (LQG) regulator for an infinite-horizon linear system.
 
-## Mathematical Formulation
+## System Summary
 
-The discrete-time linear system is defined as:
-$$x_{k+1} = A x_k + B u_k + w_k$$
-$$y_k = C x_k + v_k$$
+This project simulates a linear system subject to independent Gaussian process and measurement noise. It implements the optimal LQG control architecture relying on the separation principle:
 
-where $w_k$ and $v_k$ represent independent discrete-time Gaussian white noise processes with covariance matrices $W$ and $V$.
+* **State Estimation:** A discrete-time Kalman filter computes optimal estimates of the internal system states based on noisy sensor measurements.
+* **Optimal Control:** A Linear-Quadratic Regulator (LQR) calculates the control input by applying a feedback gain directly to the Kalman filter's state estimates.
 
-### Controller & Estimator
-
-The optimal control law is given by:
-$$u_k = -F \hat{x}_k$$
-
-The feedback gain $F$ and the Kalman gain $L$ are computed by solving their respective discrete-time algebraic Riccati equations (DARE):
-$$F = (B^T S B + R)^{-1} B^T S A$$
-$$L = P C^T (C P C^T + V)^{-1}$$
+Both the estimator and controller are designed for steady-state, infinite-horizon operation. The optimal Kalman gain and LQR feedback gain are computed dynamically by solving their associated discrete-time Algebraic Riccati Equations (DARE).
 
 ## Usage
 
